@@ -1,7 +1,7 @@
 /**
-* lazyad-loader v1.1.7
+* lazyad-loader v1.1.9
 * Deliver synchronous ads asynchronously with RWD support without modifying the ad code.
-* Madgex. Build date: 20-07-2015
+* Madgex. Build date: 11-08-2016
 */
 
 /* Asynchronously write javascript, even with document.write., v1.4.0 https://krux.github.io/postscribe
@@ -1690,17 +1690,22 @@ window.matchMedia || (window.matchMedia = function (win) {
     };
 
     function stripCommentBlock(str) {
-        // trim whitespace
-        str = str.replace(/^\s+|\s+$/g, '');
-        return str.replace('<!--', '').replace('-->', '').trim();
+        // trim whitespace and drop the outermost comment block
+        str = str
+            .trim()
+            .match(/^<!--([\s\S]*)-->$/m)[1]
+            .trim();
+        return str;
     };
 
-    function adReplace(el, text) {
+    function adReplace(el, text, fromDataAttribute) {
         var node, target;
 
         log('Injecting lazy-loaded Ad', el);
 
-        text = stripCommentBlock(text);
+        if (!fromDataAttribute) {
+            text = stripCommentBlock(text);
+        }
         setTimeout(function() {
             postscribe(el, text);
         }, 0);
@@ -1764,7 +1769,12 @@ window.matchMedia || (window.matchMedia = function (win) {
                 }
 
                 if (!isLoaded) {
-                    adReplace(el, lazyAdEl.innerHTML);
+                    var text = lazyAdEl.getAttribute('data-lazyad-code') || false;
+                    if (!text) {
+                        adReplace(el, lazyAdEl.innerHTML);
+                    } else {
+                        adReplace(el, text, true);
+                    }
                     counter++;
                 }
 

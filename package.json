@@ -1,15 +1,15 @@
 {
   "name": "lazyad-loader",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Deliver synchronous ads asynchronously with RWD support without modifying the ad code.",
-  "homepage": "https://github.com/madgex/lazy-ads",
+  "homepage": "https://github.com/Nona-Creative/lazy-ads",
   "author": "James Wragg <james.wragg@madgex.com>",
   "repository": {
     "type": "git",
-    "url": "http://github.com/madgex/lazy-ads.git"
+    "url": "http://github.com/Nona-Creative/lazy-ads.git"
   },
   "bugs": {
-    "url": "http://github.com/madgex/lazy-ads/issues"
+    "url": "http://github.com/Nona-Creative/lazy-ads/issues"
   },
   "main": "dist/lazyad-loader.js",
   "keywords": [
